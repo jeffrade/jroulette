@@ -1,0 +1,108 @@
+/*background: transparent*/
+.absolute{position:absolute;}/*Generates an absolutely positioned element, positioned relative to the first parent element that has a position other than static. The element's position is specified with the "left", "top", "right", and "bottom" properties*/
+.fixed{position:fixed}/*Generates an absolutely positioned element, positioned relative to the browser window. The element's position is specified with the "left", "top", "right", and "bottom" properties*/
+.relative{position:relative;}/***this works nice!!!*** Generates a relatively positioned element, positioned relative to its normal position, so "left:20" adds 20 pixels to the element's LEFT position*/
+.static{position:static;}/*Default. No position, the element occurs in the normal flow (ignores any top, bottom, left, right, or z-index declarations)*/
+.inherit{position:inherit;}/*Specifies that the value of the position property should be inherited from the parent element*/
+
+body{
+	background-color:rgb(30,30,30);
+	margin:0;
+	/*
+	background-color:rgb(31,48,54);
+	background-image:url('fade-top.jpg');
+	background-repeat:repeat-x;
+	*/
+}
+#wrapper{
+	width:1000px;
+	background-color:rgb(0,0,0);
+	border:3px solid rgb(75,75,75);
+	color:rgb(255,255,255);
+	margin:20px;
+}
+#menu{ /*acts like the header*/
+	background-color:rgb(50,50,50);
+	padding:20px;
+	border-bottom:7px rgb(225,225,225) solid;
+}
+a.menu-item{
+	vertical-align:middle;
+	font-weight:bold;
+	font-size:15px;
+	color:rgb(225,225,225);
+	text-decoration:none;
+	padding-bottom:20px;
+	padding-top:20px;
+	padding-left:15px;
+	padding-right:15px;
+}
+a.menu-item:link {text-decoration:none;color:rgb(225,225,225);}/* unvisited link */
+a.menu-item:visited {text-decoration:none;color:rgb(225,225,225);}/* visited link */
+a.menu-item:hover{/* mouse over link */
+	text-decoration:none;
+	color:rgb(50,50,50);
+	background-color:rgb(225,225,225);
+}
+a.menu-item:active{/* selected link */
+	text-decoration:none;
+	color:rgb(100,100,200);
+	background-color:rgb(200,200,255);
+}
+
+a:link {text-decoration:underline;color:rgb(175,175,255);} /* unvisited link */
+a:visited {text-decoration:underline;color:rgb(175,175,255);} /* visited link */
+a:hover {text-decoration:none;color:rgb(100,100,255);} /* mouse over link */
+a:active {text-decoration:none;color:white;} /* selected link */
+a.no_decor{text-decoration:none;}
+a.no-decor{text-decoration:none;}
+
+#footer{
+	background-color:rgb(50,50,50);
+	padding:20px;
+	border-top:7px rgb(225,225,225) solid;
+}
+#social-box{
+	padding-left:10px;
+	padding-top:10px;
+}
+
+.black_bg{background-color:black;}
+.black_border{border:1px solid black;}
+.white_border{border: 1px solid rgb(255,255,255);}
+.test_border{
+		border-width:1px;
+		border-style:solid;
+		border-color:rgb(255,255,255);
+}
+#dummy_div{width:800px;height:600px;}
+#header{color:white;}
+.border{border:1px solid white;}
+.left{float:left;}
+.right{float:right;}
+.none{float:none;}
+.clearBoth{clear:both;} /*phase this out*/
+.clear_both{clear:both;}
+.clearNone{clear:none;} /*phase this out*/
+.clear_none{clear:none;}
+.hover{cursor:pointer;}
+.red{color:red;}
+.green{color:green;}
+.white{color:white;}
+.black{color:black;}
+.smallfont{font-size:6pt;}
+.medfont{font-size:8pt;}
+.largefont{font-size:10pt;}
+.bigfont{font-size:12pt;}
+.15pxfont{font-size:15px;}
+.valign_center{vertical-align:middle;} /** this doesn't work with text inside a <div> **/
+.align_center{text-align:center;}
+.align_left{text-align:left;}
+.align_right{text-align:right;}
+.hidden{visibility:hidden;}
+.veryLargeText{font-size:36pt;}
+.padding-left-right-10{padding-left:10px;padding-right:10px;}
+.padding-top-bottom-20{padding-top:20px;padding-bottom:20px;}
+.padding-bottom-20{padding-bottom:20px;}
+.padding-top-40{padding-top:40px;}
+.footer-text{color:rgb(200,200,150);font-size:10pt;}

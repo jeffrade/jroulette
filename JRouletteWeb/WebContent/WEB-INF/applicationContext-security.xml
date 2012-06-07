@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p" 
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:jee="http://www.springframework.org/schema/jee" 
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:security="http://www.springframework.org/schema/security"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.6.xsd">
+			
+	<import resource="jroulette-servlet.xml" />
+    
+    <security:global-method-security secured-annotations="enabled" />
+    
+    <security:http auto-config="true" access-denied-page="/accessDenied.htm">
+    	<security:intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+    	<security:intercept-url pattern="/private/**" access="ROLE_ADMIN,ROLE_USER" />
+    	<security:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+ 
+    	<security:form-login default-target-url="/index.htm" 
+    					login-processing-url="/loginProcess.htm" 
+    					login-page="/login.htm" 
+    					authentication-failure-url="/login.htm?failedLoginAttempt=1" />
+    	
+        <security:logout logout-url="/logout.htm" logout-success-url="/index.htm" />
+	</security:http>
+
+    <security:authentication-provider>
+        <security:jdbc-user-service data-source-ref="dataSource"
+    		authorities-by-username-query="SELECT ju.email as username, a.authority
+				FROM authorities a, jroulette_user ju
+				WHERE a.juser_id = ju.id AND email=?"
+			users-by-username-query="SELECT email as username, password, active as enabled
+				FROM jroulette_user
+				WHERE email=?" />
+				
+				<!-- DEFAULT: SELECT g.id, g.group_name, ga.authority 
+						FROM groups g, group_members gm, group_authorities ga 
+						WHERE gm.username = ? 
+							AND g.id = ga.group_id 
+							AND g.id = gm.group_id -->
+
+		<!-- <security:password-encoder hash="md5" /> default is plainText  -->				
+    </security:authentication-provider>
+
+</beans>

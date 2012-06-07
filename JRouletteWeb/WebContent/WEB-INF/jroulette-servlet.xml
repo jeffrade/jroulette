@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- <context:property-placeholder location="classpath:net/jroulette/web/resources/jdbc.properties"/> -->                  
+	<!-- <property name="synchronizeOnSession" value="true" /> --><!-- What does this do? -->
+                           
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles-defs.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles.TilesJstlView"/>
+	</bean>
+ 
+    <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles.TilesJstlView"/>
+        <property name="prefix" value="/jsp/"/> <!-- Changed from /WEB-INF/jsp/ -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+	
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+            	<prop key="loginProcess.htm">loginUserController</prop>
+            	<prop key="/loginProcess.htm">loginUserController</prop>
+            	<prop key="jroulette.htm">playNewController</prop>
+            	<prop key="create.htm">createGameFormController</prop>
+            	<prop key="info.htm">rssDisplayController</prop>
+            	<prop key="register.htm">registerUserFormController</prop>
+            	<!-- PROBABLY CAN REMOVE THIS ONCE login.jsp AND signin.jsp WORK WITH SECURITY 
+            	<prop key="signin.htm">signInUserFormController</prop>
+            	 -->
+            	<prop key="forgotPassword.htm">forgotPasswordFormController</prop>
+            	<prop key="settings.htm">userSettingsController</prop>
+            	<!-- <prop key="changePassword.htm">changePasswordFormController</prop> -->
+            	<prop key="changePasswordPage.htm">changePasswordPageController</prop>
+            	<prop key="changePasswordSubmit.htm">changePasswordSubmitController</prop>
+            	<prop key="checkUserName.htm">checkUserNameController</prop>
+            	<prop key="activate.htm">activateAccountController</prop>
+            	<prop key="settings.htm">settingsController</prop>
+            	<prop key="sendEmailPref.htm">toggleUserEmailPrefController</prop>
+                <prop key="**/*.htm">viewController</prop>
+                <prop key="**/j_spring_security_check">viewController</prop>
+                
+                <!--From spring modules samples validator project  IS THIS NEEDED? -->
+                <prop key="validator.js">jsValidatorController</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="viewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
+    
+    <bean id="beanValidator" class="org.springmodules.validation.commons.DefaultBeanValidator">
+		<property name="validatorFactory" ref="validatorFactory"/>
+	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="net/jroulette/web/resources/messages"/>
+	</bean>
+	
+	<bean id="validatorFactory" class="org.springmodules.validation.commons.DefaultValidatorFactory">
+		<property name="validationConfigLocations">
+			<list>
+				<value>/WEB-INF/validator-rules.xml</value>
+      			<value>/WEB-INF/validator.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- ############ Controllers ############ -->
+	<bean id="jsValidatorController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
+     
+    <bean id="createGameFormController" class="net.jroulette.web.mvc.CreateGameFormController">
+		<property name="formView" value="createPlayer"/>
+		<property name="successView" value="begin"/>
+		<property name="validator" ref="beanValidator"/>
+		<property name="commandName" value="playerBean"/>
+        <property name="commandClass" value="net.jroulette.web.domain.RoulettePlayer"/>
+    </bean>
+    
+    <!-- CREATE THIS CLASS AND SEE IF REQUEST ARE COMING IN -->
+    <bean id="loginUserController" class="net.jroulette.web.mvc.LoginUserController">
+    </bean>
+    
+    <!-- THIS MIGHT NEED TO BE A PLAIN OLD CONTROLLER IN ORDER FOR SPRING SECURITY LOGIN PROCESS TO WORK -->
+    <bean id="signInUserFormController" class="net.jroulette.web.mvc.SignInUserFormController">
+		<property name="formView" value="signin"/>
+		<property name="successView" value="index"/>
+		<property name="failedView" value="signin"/>
+		<property name="commandName" value="user"/>
+		<property name="commandClass" value="net.jroulette.web.domain.JRouletteWebUser"/>
+		<property name="jrouletteService" ref="JRouletteService" />
+    </bean>
+    
+    <bean id="registerUserFormController" class="net.jroulette.web.mvc.RegisterUserFormController">
+		<property name="formView" value="register"/>
+		<property name="successView" value="index"/>
+		<property name="failedView" value="register"/>
+		<property name="commandName" value="user"/>
+		<property name="commandClass" value="net.jroulette.web.domain.JRouletteWebUser"/>
+		<property name="jrouletteService" ref="JRouletteService" />
+		<property name="validator" ref="beanValidator"/>
+    </bean>
+    
+    <bean id="forgotPasswordFormController" class="net.jroulette.web.mvc.ForgotPasswordFormController">
+    	<property name="formView" value="forgotPassword"/>
+    	<property name="successView" value="emailSent"/>
+    	<property name="commandClass" value="net.jroulette.web.domain.JRouletteWebUser"/>
+    	<property name="jrouletteService" ref="JRouletteService" />
+    </bean>
+    
+    <bean id="changePasswordPageController" class="net.jroulette.web.mvc.ChangePasswordPageController">
+    	<property name="formView" value="changePassword"/>
+    	<property name="jrouletteService" ref="JRouletteService" />
+    </bean>
+    
+    <bean id="changePasswordSubmitController" class="net.jroulette.web.mvc.ChangePasswordSubmitController">
+    	<property name="successView" value="settings"/>
+		<property name="failedView" value="changePassword"/>
+    	<property name="jrouletteService" ref="JRouletteService" />
+    </bean>
+	
+	<bean id="changePasswordFormController" class="net.jroulette.web.mvc.ChangePasswordFormController">
+    	<property name="formView" value="changePassword"/>
+    	<property name="successView" value="settings"/>
+		<property name="failedView" value="changePassword"/>
+		<property name="commandName" value="user2"/>
+		<property name="commandClass" value="net.jroulette.web.domain.form.ChangePassword"/>
+    	<property name="jrouletteService" ref="JRouletteService" />
+    </bean>
+    
+    <bean id="userSettingsController" class="net.jroulette.web.mvc.UserSettingsController"/>
+    
+	<bean id="playNewController" class="net.jroulette.web.mvc.PlayControllerNew" >
+		<property name="game" ref="game" />
+		<property name="commandName" value="jroulettebean"/>
+        <property name="commandClass" value="com.rade.jeff.main.data.JRouletteBean"/>
+	</bean>
+	
+	<bean id="rssDisplayController" class="net.jroulette.web.mvc.RSSItemDisplayController" />
+	
+	<bean id="activateAccountController" class="net.jroulette.web.mvc.ActivateAccountController" >
+    	<property name="successView" value="message"/>
+		<property name="failedView" value="settings"/>
+		<property name="jrouletteService" ref="JRouletteService" />
+	</bean>
+	
+	<bean id="settingsController" class="net.jroulette.web.mvc.SettingsController" >
+    	<property name="successView" value="settings"/>
+	</bean>
+	
+	<bean id="toggleUserEmailPrefController" class="net.jroulette.web.mvc.ToggleUserEmailPrefController" >
+    	<property name="successView" value="message"/>
+		<property name="failedView" value="settings"/>
+		<property name="jrouletteService" ref="JRouletteService" />
+	</bean>
+    
+    <!-- ############ AJAX Controllers ############ -->
+    <bean id="checkUserNameController" class="net.jroulette.web.mvc.ajax.CheckUserNameController">
+		<property name="jrouletteService" ref="JRouletteService" />
+    </bean>
+
+	<!-- ############ Transaction Beans ############ -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- ############ Service Beans ############ -->
+	<bean id="JRouletteService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"> <!-- Spring In Action p.238 -->
+		<property name="target" ref="JRouletteServiceTarget" /> <!-- Wires transaction target -->
+		<property name="proxyInterfaces" value="net.jroulette.service.JRouletteService" />
+		<property name="transactionManager" ref="transactionManager" /> <!-- Specifies proxy interface Wires in transaction manager -->
+		<property name="transactionAttributes">
+			<props>
+				<prop key="add*">PROPAGATION_REQUIRED</prop> <!-- TODO check these rules -->
+				<prop key="*">PROPAGATION_SUPPORTS,readOnly</prop> <!-- TODO check these rules -->
+			</props>
+		</property>
+	</bean>
+
+	<bean id="JRouletteServiceTarget" class="net.jroulette.service.JRouletteServiceImpl">
+		<property name="jrouletteDAO" ref="JRouletteDAO" />
+		<property name="mailSender" ref="mailSender" />
+		<property name="welcomeMessage" ref="welcomeMessage" />
+		<property name="forgotPasswordMessage" ref="forgotPasswordMessage" />
+		<property name="changedPasswordMessage" ref="changedPasswordMessage" />
+		<!-- Extract below into a properties file and/or as a argument that is apart of the build process (i.e. build.xml) -->
+		<property name="DEV" value="true" />
+	</bean>
+	
+	<!-- ############ DAO Beans ############ -->
+	<bean id="JRouletteDAO" class="net.jroulette.dao.JRouletteDAOImpl" >
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- ############ DATABASE RESOURCES ############ -->
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" scope="singleton">
+		<property name="jndiName" value="jdbc/jroulette" />
+		<property name="resourceRef" value="true" />
+		<property name="defaultObject" ref="devDataSource" /><!-- Fallback Object -->
+	</bean>
+	
+	<!-- DriverManagerDataSource is capable of supporting multiple
+		threads, it incurs a performance cost for creating a new connection each time a
+		connection is requested. Because of these limitations, I strongly recommend
+		using pooled data sources. [Spring In Action p.169] -->
+	<bean id="devDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!-- <property name="url" value="${jdbc.url}" /> -->
+		<property name="url" value="jdbc.url=jdbc:mysql://localhost:3306/jroulette" />
+		<property name="username" value="root" />
+		<property name="password" value="admin" />
+	</bean>
+	
+	<!-- ############ MAIL RESOURCES ############ -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    	<property name="session" ref="mailSession"/>
+	</bean>
+	
+	<bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean">
+    	<property name="jndiName">
+	        <value>java:comp/env/mail/Session</value>
+	    </property>
+	</bean>
+
+	<!-- ############ Email Messages ############ -->
+	<bean id="welcomeMessage" class="org.springframework.mail.SimpleMailMessage">
+    	<property name="from">
+	        <value><![CDATA[JRoulette.net <support@jroulette.net>]]></value>
+	    </property>
+	    <property name="to">
+        	<value><![CDATA[@USERNAME@ <@USEREMAIL@>]]></value>
+    	</property>
+    	<property name="subject" value="Welcome to JRoulette.net"/>
+    	<property name="text">
+    		<value>
+<![CDATA[@USERUSERNAME@,
+
+Thank you for joining www.jroulette.net
+
+Your password is @PASSWORD@
+    			
+If you did not sign up, please email support@jroulette.net
+]]>
+    		</value>
+    	</property>
+	</bean>
+	
+	<bean id="forgotPasswordMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from">
+	        <value><![CDATA[JRoulette.net <support@jroulette.net>]]></value>
+	    </property>
+	    <property name="to">
+        	<value><![CDATA[<@USEREMAIL@>]]></value>
+    	</property>
+    	<property name="subject" value="Password Request From JRoulette.net"/>
+    	<property name="text">
+    		<value><![CDATA[Your password is @PASSWORD@]]></value>
+    	</property>
+	</bean>
+	
+	<bean id="changedPasswordMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from">
+	        <value><![CDATA[JRoulette.net <support@jroulette.net>]]></value>
+	    </property>
+	    <property name="to">
+        	<value><![CDATA[<@USEREMAIL@>]]></value>
+    	</property>
+    	<property name="subject" value="Password Change For JRoulette.net"/>
+    	<property name="text">
+    		<value><![CDATA[Your new password is @PASSWORD@]]></value>
+    	</property>
+	</bean>
+	
+	<!-- ############ Scheduler Beans ############ -->
+	<bean id="pingDBTimerTask" class="net.jroulette.service.util.PingDBTimerTask">
+		<property name="jrouletteDAO" ref="JRouletteDAO" />
+	</bean>
+	
+	<bean id="scheduledEmailTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="timerTask" ref="pingDBTimerTask" />
+		<property name="period" value="25200000" /> <!-- i.e. every 7 hours -->
+	</bean>
+	
+	<bean class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="scheduledEmailTask"/>
+			</list>
+		</property>
+	</bean>
+</beans>

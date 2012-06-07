@@ -1,6 +1,17 @@
 *.class
+.classpath
+.project
+*.log
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
+# Directories #
+.settings/
+.metadata/
+bin/
+classes/
+dojo*/
+
