@@ -13,6 +13,7 @@ client timeouts, or using the Connector/J connection property 'autoReconnect=tru
 nested exception is com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: [repeat above]
 
 ###TODO#####################################################
+TASK: Clean up project (security, spring upgrade, etc.)
 TASK: Make game IE friendly
 SUB-TASK: convert all empty div tags on game board to transparent img elements to fix IE issues (verify works correctly first)
 TASK: Make current bet box scroll like the message box since there is overflow
