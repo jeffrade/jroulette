@@ -11,7 +11,7 @@
 # Directories #
 .settings/
 .metadata/
-bin/
-classes/
-dojo*/
+#bin/
+#classes/
+#dojo*/
 
