@@ -1,3 +1,4 @@
+git add -i
 git --html
 git add --refresh
 git add --refresh .
