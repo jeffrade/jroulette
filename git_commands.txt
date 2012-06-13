@@ -1,0 +1,63 @@
+git --html
+git add --refresh
+git add --refresh .
+git add -a
+git add .
+git add JRoulette
+git add JRoulette/*
+git add JRoulette/src/com/rade/jeff/main/
+git add JRoulette/src/com/rade/jeff/main/.
+git add JRoulette/src/com/rade/jeff/main/JRouletteGame.java
+git add TODO.txt
+git branch
+git branch -r
+git commit
+git commit --amend --author='jrade <jeffrade@gmail.com>'
+git commit -a -m"modified ignore, rm ol ignore file"
+git commit -m 'Initial test commit'
+git commit -m "Added task" TODO.txt
+git commit -m "changes to readme file" README.md
+git commit -m "Updated .gitignore file" .gitignore
+git commit -m"reverting ignore file" .gitignore
+git commit -v .gitignore
+git commit JRoulette
+git commit README.md "changes to readme file"
+git config --global credential.helper 'cache --timeout=3600'
+git config --global credential.helper cache
+git config --global user.email "jeffrade@gmail.com"
+git config --global user.name "jrade"
+git config branch.autosetupmerge true
+git diff
+git diff TODO.txt
+git git-gui
+git gui
+git info
+git init
+git log --color
+git pull
+git pull origin
+git push
+git push origin
+git push origin master
+git remote add origin git@github.com:jer3321/jroulette.git
+git rm -r .
+git rm -r JRouletteWeb/build/*
+git rm -r JRouletteWeb/WebContent/js/dojo*/**
+git rm -rf JRouletteWeb/WebContent/js/dojo*/**
+git rm -rf JRouletteWeb/WebContent/WEB-INF/classes/
+git rm .
+git rm JRouletteWeb/build/*
+git show
+git stage .
+git stage JRoulette
+git status
+git status -a
+git status -v
+git-gui
+man git
+ssh -i id_rsa git@github.com
+ssh -T git@github.com
+ssh -v git@github.com
+sudo -ujrade git push
+sudo git push
+sudo jrade git push
