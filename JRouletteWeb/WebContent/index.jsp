@@ -10,6 +10,7 @@
     	<script type="text/javascript" src="js/dojo-release-1.5.0/dojo/dojo.js" djConfig="parseOnLoad: true"></script>
 	</head>
 	<body class="tundra">
+	<!--  -->
 		<center>
 			<div id="wrapper">
 				<%@ include file="/tiles/menu.jsp" %>
