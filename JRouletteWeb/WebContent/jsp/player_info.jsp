@@ -1,2 +1,0 @@
-<div id="player_name" class="white largefont valign_center">Player:&nbsp;<c:out value="${bean.player.name}"/></div>
-<div id="player_money" class="white largefont valign_center ">Money:&nbsp;$<c:out value="${bean.player.playerBank.totalMoney}"/></div>

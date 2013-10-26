@@ -1,1 +1,0 @@
-<div id="footer" class="footer-text">jroulette.net 2010&nbsp;|&nbsp; <a href="privacy.htm">Privacy Policy</a></div>
