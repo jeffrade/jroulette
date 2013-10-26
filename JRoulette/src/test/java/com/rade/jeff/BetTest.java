@@ -1,4 +1,4 @@
-package net.jroulette.test;
+package com.rade.jeff;
 
 import com.rade.jeff.main.data.AmericanBet;
 import com.rade.jeff.main.data.Bet;
@@ -6,7 +6,7 @@ import com.rade.jeff.main.data.EuropeanBet;
 
 import junit.framework.TestCase;
 
-public class BetTestCase extends TestCase {
+public class BetTest extends TestCase {
 	
 	public static final String VALID_BET_NAME = "BLACK";
 	

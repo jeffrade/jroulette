@@ -1,4 +1,4 @@
-package net.jroulette.test;
+package com.rade.jeff;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import com.rade.jeff.main.data.RouletteWheel;
 
 import junit.framework.TestCase;
 
-public class NumberGeneratorTestCase extends TestCase{
+public class NumberGeneratorTest extends TestCase{
 	
 	private static final NumberGenerator generator = new RandomNumberGeneratorImpl();
 	

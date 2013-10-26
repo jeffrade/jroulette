@@ -1,7 +1,9 @@
-package net.jroulette.test;
+package com.rade.jeff;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import junit.framework.TestCase;
 
 import com.rade.jeff.main.Casino;
 import com.rade.jeff.main.JRouletteGame;
@@ -10,9 +12,7 @@ import com.rade.jeff.main.data.Bet;
 import com.rade.jeff.main.player.Player;
 import com.rade.jeff.main.player.PlayerBank;
 
-import junit.framework.TestCase;
-
-public class PlayerBankTestCase extends TestCase {
+public class PlayerBankTest extends TestCase {
 	
 	public void testAddMoney(){
 		PlayerBank bank = new PlayerBank(10);
