@@ -3,9 +3,9 @@ package com.rade.jeff;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.rade.jeff.main.data.NumberGenerator;
-import com.rade.jeff.main.data.RandomNumberGeneratorImpl;
-import com.rade.jeff.main.data.RouletteWheel;
+import com.rade.jeff.model.NumberGenerator;
+import com.rade.jeff.model.RandomNumberGeneratorImpl;
+import com.rade.jeff.model.RouletteWheel;
 
 import junit.framework.TestCase;
 

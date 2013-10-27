@@ -1,8 +1,8 @@
 package com.rade.jeff;
 
-import com.rade.jeff.main.data.AmericanBet;
-import com.rade.jeff.main.data.Bet;
-import com.rade.jeff.main.data.EuropeanBet;
+import com.rade.jeff.model.AmericanBet;
+import com.rade.jeff.model.Bet;
+import com.rade.jeff.model.EuropeanBet;
 
 import junit.framework.TestCase;
 

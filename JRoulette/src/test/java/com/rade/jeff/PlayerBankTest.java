@@ -5,12 +5,12 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
-import com.rade.jeff.main.Casino;
-import com.rade.jeff.main.JRouletteGame;
-import com.rade.jeff.main.data.AmericanBet;
-import com.rade.jeff.main.data.Bet;
-import com.rade.jeff.main.player.Player;
-import com.rade.jeff.main.player.PlayerBank;
+import com.rade.jeff.Casino;
+import com.rade.jeff.JRouletteGame;
+import com.rade.jeff.model.AmericanBet;
+import com.rade.jeff.model.Bet;
+import com.rade.jeff.player.Player;
+import com.rade.jeff.player.PlayerBank;
 
 public class PlayerBankTest extends TestCase {
 	

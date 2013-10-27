@@ -1,0 +1,48 @@
+package com.rade.jeff.model;
+
+public class DoubleReference {
+	public static final Double ELEVEN_POINT_SIX = Double.valueOf(11.667);
+	public static final Double EIGHT_POINT_FIVE = Double.valueOf(8.5);
+	public static final Double SIX_POINT_SIX = Double.valueOf(6.6);
+	public static final Double FIVE_POINT_THREE = Double.valueOf(5.33);
+	public static final Double TWO_POINT_ONE = Double.valueOf(2.167);
+	public static final Double ONE_POINT_ONE = Double.valueOf(1.111);
+	public static final Double ONE = Double.valueOf(1);
+	public static final Double TWO = Double.valueOf(2);
+	public static final Double THREE = Double.valueOf(3);
+	public static final Double FOUR = Double.valueOf(4);
+	public static final Double FIVE = Double.valueOf(5);
+	public static final Double SIX = Double.valueOf(6);
+	public static final Double SEVEN = Double.valueOf(7);
+	public static final Double EIGHT = Double.valueOf(8);
+	public static final Double NINE = Double.valueOf(9);
+	public static final Double TEN = Double.valueOf(10);
+	public static final Double ELEVEN = Double.valueOf(11);
+	public static final Double TWELVE = Double.valueOf(12);
+	public static final Double THIRTEEN = Double.valueOf(13);
+	public static final Double FOURTEEN = Double.valueOf(14);
+	public static final Double FIFTEEN = Double.valueOf(15);
+	public static final Double SIXTEEN = Double.valueOf(16);
+	public static final Double SEVENTEEN = Double.valueOf(17);
+	public static final Double EIGHTEEN = Double.valueOf(18);
+	public static final Double NINETEEN = Double.valueOf(19);
+	public static final Double TWENTY = Double.valueOf(20);
+	public static final Double TWENTY_ONE = Double.valueOf(21);
+	public static final Double TWENTY_TWO = Double.valueOf(22);
+	public static final Double TWENTY_THREE = Double.valueOf(23);
+	public static final Double TWENTY_FOUR = Double.valueOf(24);
+	public static final Double TWENTY_FIVE = Double.valueOf(25);
+	public static final Double TWENTY_SIX = Double.valueOf(26);
+	public static final Double TWENTY_SEVEN = Double.valueOf(27);
+	public static final Double TWENY_EIGHT = Double.valueOf(28);
+	public static final Double TWENTY_NINE = Double.valueOf(29);
+	public static final Double THIRTY = Double.valueOf(30);
+	public static final Double THIRTY_ONE = Double.valueOf(31);
+	public static final Double THIRTY_TWO = Double.valueOf(32);
+	public static final Double THRITY_THREE = Double.valueOf(33);
+	public static final Double THIRTY_FOUR = Double.valueOf(34);
+	public static final Double THIRTY_FIVE = Double.valueOf(35);
+	public static final Double THIRTY_SIX = Double.valueOf(36);
+	public static final Double THIRTY_SEVEN = Double.valueOf(37);
+	public static final Double THIRTY_EIGHT = Double.valueOf(38);
+}
