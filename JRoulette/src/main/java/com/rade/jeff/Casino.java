@@ -2,8 +2,13 @@ package com.rade.jeff;
 
 import java.io.Serializable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
 import com.rade.jeff.model.Bet;
 import com.rade.jeff.model.Ratio;
+import com.rade.jeff.model.ResultMessage;
 import com.rade.jeff.model.RollHistoryBucket;
 import com.rade.jeff.model.RollResult;
 import com.rade.jeff.model.RouletteWheel;
@@ -12,9 +17,8 @@ import com.rade.jeff.player.PlayerBank;
 
 public class Casino implements Serializable{
 
-	/**
-	 * Default
-	 */
+	private static final Logger LOG = LoggerFactory.getLogger(Casino.class);
+	
 	private static final long serialVersionUID = 19032434895897132L;
 
 	private static final int GIVE_BACK_ORIG_BET_AMOUNT = 1;
@@ -74,24 +78,17 @@ public class Casino implements Serializable{
 		return collectiveDecision;
 	}
 	
-	/**
-	 * |SpinResult|bet_1 [Won Lost]<br/>...bet_i [Won Lost]<br/>|PlayerMoney
-	 * 
-	 * @param player
-	 * @param spinResult
-	 * @return
-	 */
 	public String payOutBets(Player player, int spinResult){
-		String payOutMessage = this.executePayOut(player, spinResult);
-		StringBuilder message = new StringBuilder("|");
-		message.append(spinResult);
-		message.append("|");
-		message.append(payOutMessage);
-		message.append("|");
-		message.append(player.getPlayerBank().getTotalMoney());
+		ResultMessage message = new ResultMessage();
+		message.setSpinResult(spinResult);
+		message.setPayoutMessage(executePayOut(player, spinResult));
+		message.setTotalMoney(player.getPlayerBank().getTotalMoney());
 		player.setUndecided(true);
 		
-		return message.toString();
+		Gson gson = new Gson();
+		String json = gson.toJson(message);
+
+		return json;
 	}
 
 	public RouletteWheel getRouletteWheel() {
