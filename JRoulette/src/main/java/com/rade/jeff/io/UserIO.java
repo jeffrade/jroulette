@@ -3,7 +3,12 @@ package com.rade.jeff.io;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class UserIO {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(UserIO.class);
 	
 	private static final UserIO SINGLETON = new UserIO();
 	
@@ -39,9 +44,8 @@ public class UserIO {
 			}
 			
 			input = in.readLine();
-			System.out.println();
 		} catch (Exception ex){
-			System.out.println("Exception in UserIO.userCoomunicationHub: ");
+			LOG.error("Exception in UserIO.userCoomunicationHub: ");
 			ex.printStackTrace();
 		}
 		
@@ -64,8 +68,7 @@ public class UserIO {
 					System.out.println(endMessageToUser);
 				}
 				
-				input = in.readLine();
-				System.out.println();			
+				input = in.readLine();			
 				done = validateInt(Integer.valueOf(input).intValue(), validator, comparison);
 				if(!done){
 					printErrorMessage(validator, comparison);
@@ -73,8 +76,7 @@ public class UserIO {
 			}
 			
 		} catch (Exception ex){
-			System.out.println("Exception in UserIO.userCommunicationHub: ");
-			ex.printStackTrace();
+			LOG.error("Exception in UserIO.userCommunicationHub: ", ex);
 		}
 		
 		return input;				
@@ -86,10 +88,9 @@ public class UserIO {
 				if(i % 10 == 0){
 					System.out.println(args[i - 1]);
 				} else {
-					System.out.print(args[i - 1]);
+					System.out.println(args[i - 1]);
 				}
 			}
-			System.out.println();
 		}
 	}
 
@@ -105,7 +106,7 @@ public class UserIO {
 		} else if(comparison == EQUAL_TO){
 			System.out.println("You must choose a number equal to " + validator);
 		} else{
-			System.out.println("Should not be here");
+			LOG.error("Should not be here");
 		}
 	}
 

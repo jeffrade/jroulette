@@ -3,14 +3,16 @@ package com.rade.jeff.player;
 import java.io.Serializable;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.rade.jeff.model.Bet;
 import com.rade.jeff.model.Money;
 
 public class PlayerBank implements Serializable{
 
-	/**
-	 * Default
-	 */
+	private static final Logger LOG = LoggerFactory.getLogger(PlayerBank.class);
+	
 	private static final long serialVersionUID = 1L;
 
 	private Player player;
@@ -70,14 +72,10 @@ public class PlayerBank implements Serializable{
 	//TODO Where else would these rules be, besides in front-end validation?
 	public void addMoney(int money, int wonOrLost){
 		if(wonOrLost == MAKING_OR_LOST_BET && (totalMoney == 0 || money > this.totalMoney)){
-			System.out.println("##########################################################");
-			System.out.println("### BUG: You do not have enough money to make that bet ###");
-			System.out.println("##########################################################");
+			LOG.error("### BUG: You do not have enough money to make that bet ###");
 		} else if(wonOrLost == MAKING_OR_LOST_BET && totalMoney == 0){
 			//TODO is this block ever executed?
-			System.out.println("#####################################");
-			System.out.println("### Does this block get executed? ###");
-			System.out.println("#####################################");
+			LOG.info("### Does this block get executed?");
 			this.player.setPlayingDecision(false);
 			this.player.setUndecided(false);
 		} else{
@@ -86,7 +84,7 @@ public class PlayerBank implements Serializable{
 		}
 		
 		if(totalMoney == 0){
-			System.out.println("WARNING: You have $0");
+			LOG.info("WARNING: You have $0");
 		}
 	}
 	
