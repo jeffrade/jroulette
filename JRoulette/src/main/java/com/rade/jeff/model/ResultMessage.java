@@ -1,7 +1,5 @@
 package com.rade.jeff.model;
 
-import java.math.BigDecimal;
-
 public class ResultMessage {
 	
 	private Integer spinResult;
