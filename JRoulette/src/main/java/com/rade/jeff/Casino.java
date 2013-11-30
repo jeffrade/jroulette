@@ -1,6 +1,8 @@
 package com.rade.jeff;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,14 +44,16 @@ public class Casino implements Serializable{
 		return result.getNumber();
 	}
 	
-	private String executePayOut(Player player, int spinResult){
-		StringBuilder message = new StringBuilder();
+	private List<String> executePayOut(Player player, int spinResult){
+		List<String> messages = new ArrayList<String>();
 		for(int i = 0; i < player.getPlayerBets().size(); i++){
+			StringBuilder message = new StringBuilder();
 			Bet bet = player.getPlayerBets().get(i);
+			
 			if(bet.getBet().contains(spinResult)){
 				message.append("Your bet of ");
 				message.append(bet.getBetName().toLowerCase().replace("_", " "));
-				message.append(" won\n");
+				message.append(" won");
 				int ratio = Ratio.getRatio(bet.getBetName());
 				int amt = bet.getAmount();
 				int won = (ratio + GIVE_BACK_ORIG_BET_AMOUNT) * amt;
@@ -57,11 +61,13 @@ public class Casino implements Serializable{
 			} else{
 				message.append("Your bet of ");
 				message.append(bet.getBetName().toLowerCase().replace("_", " "));
-				message.append(" lost\n");
-			}			
+				message.append(" lost");
+			}
+			
+			messages.add(message.toString());
 		}
 		
-		return message.toString();
+		return messages;
 	}
 	
 	public boolean nextGameHasPlayer(Player player){
@@ -81,14 +87,12 @@ public class Casino implements Serializable{
 	public String payOutBets(Player player, int spinResult){
 		ResultMessage message = new ResultMessage();
 		message.setSpinResult(spinResult);
-		message.setPayoutMessage(executePayOut(player, spinResult));
+		message.setPayoutMessages(executePayOut(player, spinResult));
 		message.setTotalMoney(player.getPlayerBank().getTotalMoney());
 		player.setUndecided(true);
 		
 		Gson gson = new Gson();
-		String json = gson.toJson(message);
-
-		return json;
+		return gson.toJson(message);
 	}
 
 	public RouletteWheel getRouletteWheel() {

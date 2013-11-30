@@ -7,16 +7,18 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gson.Gson;
 import com.rade.jeff.model.AmericanBet;
+import com.rade.jeff.model.AmericanBet.AmericanTypeOfBet;
 import com.rade.jeff.model.AmericanOddsImpl;
 import com.rade.jeff.model.Bet;
 import com.rade.jeff.model.BetFactory;
 import com.rade.jeff.model.EuropeanBet;
+import com.rade.jeff.model.EuropeanBet.EuropeanTypeOfBet;
 import com.rade.jeff.model.EuropeanOddsImpl;
 import com.rade.jeff.model.Odds;
 import com.rade.jeff.model.Ratio;
-import com.rade.jeff.model.AmericanBet.AmericanTypeOfBet;
-import com.rade.jeff.model.EuropeanBet.EuropeanTypeOfBet;
+import com.rade.jeff.model.ResultMessage;
 import com.rade.jeff.player.Player;
 import com.rade.jeff.player.PlayerBank;
 
@@ -52,13 +54,7 @@ public class JRouletteGame implements Serializable{
 	
 	public static final String BET_NOT_FOUND = "That bet was not found";
 
-	private static final String SPACE = " ";
-
 	private static final String PIPE = "|";
-	
-	private static final String _37 = "37";
-	
-	private static final String _00 = "00";
 	
 	/**
 	 * Default Constructor
@@ -88,28 +84,6 @@ public class JRouletteGame implements Serializable{
 	}
 	
 	/**
-	 * Being used by JRouletteWeb Ajax call
-	 * @param casino
-	 * @return
-	 */
-	public String getColorAndNumberHistory(Casino casino){
-		StringBuilder s = new StringBuilder();
-		
-		List<String> c = casino.getHistory().getColors();
-		List<String> n = casino.getHistory().getNumbers();
-		
-		for(int i = 0; i < c.size(); i++){
-			s.append(c.get(i).trim().substring(0, 1));
-			s.append(n.get(i).trim().replace(_37, _00));
-			s.append(PIPE);
-		}
-		
-		//LOG.logp(Level.INFO, CLASS_NAME, "getColorAndNumberHistory()", "color and number history", s.toString()); //s.toString() does not get printed out
-		
-		return s.toString();
-	}
-	
-	/**
 	 * 
 	 * @param casino
 	 * @return
@@ -132,13 +106,14 @@ public class JRouletteGame implements Serializable{
 	 * @param casino
 	 * @return
 	 */
-	public String getNumberHistoryString(Casino casino){
-		StringBuilder message = new StringBuilder();
+	public String getNumberHistoryJson(Casino casino){
+		ResultMessage message = new ResultMessage();
 		for(String number : casino.getHistory().getNumbers()){
-			message.append(number);
-			message.append(SPACE);
+			message.addNumberHistory(number);
 		}
-		return message.toString();
+		
+		Gson json = new Gson();
+		return json.toJson(message);
 	}
 	
 	/**
@@ -164,13 +139,14 @@ public class JRouletteGame implements Serializable{
 	 * @param casino
 	 * @return
 	 */
-	public String getColorHistoryString(Casino casino){
-		StringBuilder message = new StringBuilder();
+	public String getColorHistoryJson(Casino casino){
+		ResultMessage message = new ResultMessage();
 		for(String color : casino.getHistory().getColors()){
-			message.append(color);
-			message.append(SPACE);
+			message.addColorHistory(color);
 		}
-		return message.toString();
+		
+		Gson json = new Gson();
+		return json.toJson(message);
 	}
 	
 	/**
@@ -280,10 +256,11 @@ public class JRouletteGame implements Serializable{
 	 * @param player
 	 * @return
 	 */
-	public String endPlayerGame(Player player){
-		player.setPlayingDecision(false);
+	public String getGameEndedMessageJson(Player player){
 		boolean lost = player.getPlayerBank().getMoneyWon() < 0;
-		return "You " + (lost ? "lost" : "won") + " $" + Math.abs(player.getPlayerBank().getMoneyWon()) + " and have $" + player.getPlayerBank().getTotalMoney() + " left.\n" + THANKYOU_MESSAGE;
+		ResultMessage message = new ResultMessage("You " + (lost ? "lost" : "won") + " $" + Math.abs(player.getPlayerBank().getMoneyWon()) + " and have $" + player.getPlayerBank().getTotalMoney() + " left. " + THANKYOU_MESSAGE);
+		Gson json = new Gson();
+		return json.toJson(message);
 	}
 	
 	/**
@@ -425,6 +402,7 @@ public class JRouletteGame implements Serializable{
 		return s.toString();
 	}
 	
+	//TODO Convert this to json String
 	public String getOddsAndPayoutString(int wheelCount){
 		StringBuilder s = new StringBuilder(PIPE);
 		List<String> l = new ArrayList<String>();

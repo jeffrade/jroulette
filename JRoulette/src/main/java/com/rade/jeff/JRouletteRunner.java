@@ -29,9 +29,9 @@ public class JRouletteRunner {
 			_int = game.spinRouletteWheel(bean.getCasino());
 			_message = game.payOutBetsToPlayers(bean.getCasino(), bean.getPlayer(), _int);
 			bean.getIo().messageToUser(_message);			
-			_message = game.getNumberHistoryString(bean.getCasino());
+			_message = game.getNumberHistoryJson(bean.getCasino());
 			bean.getIo().messageToUser(_message);
-			_message = game.getColorHistoryString(bean.getCasino());
+			_message = game.getColorHistoryJson(bean.getCasino());
 			bean.getIo().messageToUser(_message);
 			game.clearPlayerBets(bean.getPlayer());
 			_decision = game.isPlayerAbleToBet(bean.getPlayer()) && game.isPlayerWantingToBet(bean.getPlayer()) && bean.getIo().promptPlayAgain(JRouletteGame.PLAY_AGAIN_MESSAGE, null, null).equalsIgnoreCase("y") ? true : false;
@@ -42,7 +42,8 @@ public class JRouletteRunner {
 				_message = makeBets(bean.getPlayer(), game, bean.getIo(), bean.getNumberWheelCount());
 				bean.getIo().messageToUser(_message);
 			} else{
-				_message = game.endPlayerGame(bean.getPlayer());
+				bean.getPlayer().setPlayingDecision(false);
+				_message = game.getGameEndedMessageJson(bean.getPlayer());
 				bean.getIo().messageToUser(_message);
 			}
 		}

@@ -19,14 +19,11 @@ public class RollHistoryBucket implements Serializable{
 	
 	private static final int DEFAULT_HOLDER_COUNT = 15;
 	
-	private static final String HTML_NBSP = "&nbsp;";
-	
 	public RollHistoryBucket(){
 		super();
 		this.numbers = new ArrayList<String>();
 		this.colors = new ArrayList<String>();
 		this.holderCount = DEFAULT_HOLDER_COUNT;
-		initList(this.numbers, this.colors, this.holderCount);
 	}
 	
 	public RollHistoryBucket(List<String> numbers, List<String> colors, int holderCount){
@@ -34,14 +31,6 @@ public class RollHistoryBucket implements Serializable{
 		this.numbers = numbers;
 		this.colors = colors;
 		this.holderCount = holderCount;
-		initList(this.numbers, this.colors, this.holderCount);
-	}
-	
-	public static void initList(List<String> numbers, List<String> colors, int holderCount){
-		for(int i = 1; i <= holderCount; i++){
-			numbers.add(HTML_NBSP);
-			colors.add(HTML_NBSP);
-		}
 	}
 	
 	public String getLastNumber(){
